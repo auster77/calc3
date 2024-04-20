@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공학용 계산기</title>
+    <style>
+        /* CSS 스타일링 */
+        /* 여기에 CSS 코드를 작성하세요 */
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>공학용 계산기</h2>
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="clearLast()">C</button>
+            <br>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <br>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <br>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <br>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript 코드
+        // 입력 값을 디스플레이에 추가하는 함수
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        // 가장 최근에 입력한 항목을 지우는 함수
+        function clearLast() {
+            let displayValue = document.getElementById('display').value;
+            document.getElementById('display').value = displayValue.substring(0, displayValue.length - 1);
+        }
+
+        // 계산을 수행하고 결과를 디스플레이에 표시하는 함수
+        function calculate() {
+            try {
+                let input = document.getElementById('display').value;
+                let result = evalWithFunctions(input);
+                document.getElementById('display').value = result;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        // 산술 연산, 삼각함수, 지수 함수를 포함한 평가 함수
+        function evalWithFunctions(input) {
+            // 산술 연산
+            input = input.replace(/sin/g, 'Math.sin');
+            input = input.replace(/cos/g, 'Math.cos');
+            input = input.replace(/tan/g, 'Math.tan');
+            input = input.replace(/sqrt/g, 'Math.sqrt');
+            input = input.replace(/log/g, 'Math.log');
+            input = input.replace(/exp/g, 'Math.exp');
+            return eval(input);
+        }
+    </script>
+</body>
+</html>
